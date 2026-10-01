@@ -1,0 +1,17 @@
+defaults:
+  raw_path: s3://example-data-lake/raw
+  curated_path: s3://example-data-lake/curated
+  watermark_path: s3://example-data-lake/_watermarks
+tables:
+  customers:
+    source: public.customers
+    primary_keys: [customer_id]
+    watermark_column: updated_at
+    pii_columns:
+      hash: [email]
+      mask: [phone]
+  orders:
+    source: dbo.orders
+    primary_keys: [order_id]
+    watermark_column: last_modified
+    pii_columns: {}
